@@ -5,7 +5,7 @@
 // holds only the game, its screenshots and the dossier, so both runs write
 // the same bytes.
 
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -15,7 +15,6 @@ const out = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
 const skipDotfiles = { filter: (src: string) => !src.split('/').pop()?.startsWith('.') };
 
-rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 cpSync(join(here, 'game'), join(out, 'game'), { recursive: true, filter: skipDotfiles.filter });
 mkdirSync(join(out, 'screenshots'), { recursive: true });
